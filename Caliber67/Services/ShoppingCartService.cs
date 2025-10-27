@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Caliber67.Data;
 using Caliber67.Models.ShoppingCart;
-using Caliber67.Models.Orders;
+using Caliber67.Models.Identity;
 using System.Security.Claims;
 
 namespace Caliber67.Services
@@ -14,7 +14,6 @@ namespace Caliber67.Services
         Task<Cart> GetUserCartAsync();
         Task<int> GetCartItemCountAsync();
         Task ClearCartAsync();
-        Task<Order> CreateOrderAsync(Order order);
     }
 
     public class ShoppingCartService : IShoppingCartService
@@ -30,7 +29,7 @@ namespace Caliber67.Services
 
         private string GetUserId()
         {
-            return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
         public async Task<Cart> GetUserCartAsync()
@@ -50,6 +49,14 @@ namespace Caliber67.Services
             if (string.IsNullOrEmpty(userId))
                 throw new UnauthorizedAccessException("User must be logged in");
 
+            // Check if product exists and is in stock
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null)
+                throw new ArgumentException("Product not found");
+
+            if (product.StockQuantity < quantity)
+                throw new InvalidOperationException("Not enough stock available");
+
             var cart = await GetUserCartAsync();
             if (cart == null)
             {
@@ -59,14 +66,17 @@ namespace Caliber67.Services
             }
 
             var existingItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
-            var product = await _context.Products.FindAsync(productId);
 
             if (existingItem != null)
             {
+                // Update existing item
                 existingItem.Quantity += quantity;
+                if (existingItem.Quantity > product.StockQuantity)
+                    throw new InvalidOperationException("Not enough stock available");
             }
             else
             {
+                // Add new item
                 cart.CartItems.Add(new CartItem
                 {
                     ProductId = productId,
@@ -91,14 +101,22 @@ namespace Caliber67.Services
 
         public async Task UpdateCartItemQuantityAsync(int cartItemId, int quantity)
         {
-            var cartItem = await _context.CartItems.FindAsync(cartItemId);
+            if (quantity <= 0)
+            {
+                await RemoveFromCartAsync(cartItemId);
+                return;
+            }
+
+            var cartItem = await _context.CartItems
+                .Include(ci => ci.Product)
+                .FirstOrDefaultAsync(ci => ci.Id == cartItemId);
+
             if (cartItem != null)
             {
+                if (quantity > cartItem.Product.StockQuantity)
+                    throw new InvalidOperationException("Not enough stock available");
+
                 cartItem.Quantity = quantity;
-                if (cartItem.Quantity <= 0)
-                {
-                    _context.CartItems.Remove(cartItem);
-                }
                 await _context.SaveChangesAsync();
             }
         }
@@ -117,33 +135,6 @@ namespace Caliber67.Services
                 _context.CartItems.RemoveRange(cart.CartItems);
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public async Task<Order> CreateOrderAsync(Order order)
-        {
-            var cart = await GetUserCartAsync();
-            if (cart == null || !cart.CartItems.Any())
-                throw new InvalidOperationException("Cart is empty");
-
-            // Create order items from cart items
-            foreach (var cartItem in cart.CartItems)
-            {
-                order.OrderItems.Add(new OrderItem
-                {
-                    ProductId = cartItem.ProductId,
-                    Quantity = cartItem.Quantity,
-                    UnitPrice = cartItem.UnitPrice
-                });
-            }
-
-            order.TotalAmount = order.OrderItems.Sum(oi => oi.Subtotal);
-            _context.Orders.Add(order);
-
-            // Clear the cart
-            await ClearCartAsync();
-
-            await _context.SaveChangesAsync();
-            return order;
         }
     }
 }

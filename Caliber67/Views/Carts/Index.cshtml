@@ -40,6 +40,7 @@
                     <td>$@item.UnitPrice.ToString("F2")</td>
                     <td>
                         <form asp-action="UpdateQuantity" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
                             <input type="hidden" name="cartItemId" value="@item.Id" />
                             <div class="input-group input-group-sm" style="width: 120px;">
                                 <input type="number" name="quantity" value="@item.Quantity" min="1"
@@ -51,6 +52,7 @@
                     <td>$@item.Subtotal.ToString("F2")</td>
                     <td>
                         <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
                             <input type="hidden" name="cartItemId" value="@item.Id" />
                             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                         </form>
@@ -68,7 +70,14 @@
     </table>
 
     <div class="text-end">
-        <a asp-controller="Products" asp-action="Index" class="btn btn-secondary">Continue Shopping</a>
+        <form asp-action="ClearCart" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-outline-danger me-2"
+                    onclick="return confirm('Are you sure you want to clear your entire cart?')">
+                Clear Cart
+            </button>
+        </form>
+        <a asp-controller="Products" asp-action="Index" class="btn btn-secondary me-2">Continue Shopping</a>
         <a asp-action="Checkout" class="btn btn-success">Proceed to Checkout</a>
     </div>
 }

@@ -32,8 +32,17 @@
                         </li>
                     </ul>
 
-                    <!-- Login/Logout Section -->
+                    <!-- Right side navigation -->
                     <ul class="navbar-nav">
+                        <!-- Cart Button -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Carts" asp-action="Index">
+                                <i class="fas fa-shopping-cart"></i> Cart
+                                <span class="badge bg-primary" id="cartCount">0</span>
+                            </a>
+                        </li>
+
+                        <!-- Login/Logout Section -->
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -73,6 +82,36 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Font Awesome for cart icon (optional) -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
+    <!-- JavaScript to update cart count -->
+    <script>
+        // Function to update cart count
+        async function updateCartCount() {
+            try {
+                const response = await fetch('/Carts/GetCartCount');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('cartCount').textContent = data.count;
+                }
+            } catch (error) {
+                console.error('Error updating cart count:', error);
+            }
+        }
+
+        // Update cart count when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        // Update cart count after adding item (you can call this from your forms)
+        function onAddToCartSuccess() {
+            updateCartCount();
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
