@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Caliber67.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251027212748_NewGuns")]
-    partial class NewGuns
+    [Migration("20251027223301_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,6 +270,11 @@ namespace Caliber67.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("SubCategory")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -279,391 +284,491 @@ namespace Caliber67.Migrations
                         {
                             Id = 1,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2069),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1369),
                             Description = "Compact 9mm pistol, perfect for concealed carry and home defense. Features a modular design and reliable performance.",
-                            ImageUrl = "/images/glock19.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1595590424281-b0aefc285822?w=400&h=300&fit=crop",
                             Manufacturer = "Glock",
                             Name = "Glock 19 Gen 5",
                             Price = 549.99m,
-                            StockQuantity = 15
+                            StockQuantity = 15,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 2,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2072),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1371),
                             Description = "Modular striker-fired pistol with exceptional accuracy and customizable grip modules.",
-                            ImageUrl = "/images/sigp320.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1595593179760-23fef6a0d95a?w=400&h=300&fit=crop",
                             Manufacturer = "Sig Sauer",
                             Name = "Sig Sauer P320 XCompact",
                             Price = 649.99m,
-                            StockQuantity = 12
+                            StockQuantity = 12,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 3,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2074),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1373),
                             Description = "Ultra-compact pistol with 13+1 capacity, perfect for everyday concealed carry.",
-                            ImageUrl = "/images/mpshield.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Smith & Wesson",
                             Name = "Smith & Wesson M&P Shield Plus",
                             Price = 499.99m,
-                            StockQuantity = 20
+                            StockQuantity = 20,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 4,
                             Caliber = ".45 ACP",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2076),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1375),
                             Description = "Classic 1911 design with modern features, offering exceptional accuracy and smooth operation.",
-                            ImageUrl = "/images/1911ronin.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Springfield Armory",
                             Name = "Springfield 1911 Ronin",
                             Price = 899.99m,
-                            StockQuantity = 8
+                            StockQuantity = 8,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 5,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2077),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1377),
                             Description = "Ergonomic striker-fired pistol with excellent trigger and superior ergonomics.",
-                            ImageUrl = "/images/czp10c.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1595590424281-b0aefc285822?w=400&h=300&fit=crop",
                             Manufacturer = "CZ",
                             Name = "CZ P-10 C",
                             Price = 499.99m,
-                            StockQuantity = 18
+                            StockQuantity = 18,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 6,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2079),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1379),
                             Description = "Micro-compact pistol with 15+1 capacity, perfect for everyday concealed carry.",
-                            ImageUrl = "/images/hellcat.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1595593179760-23fef6a0d95a?w=400&h=300&fit=crop",
                             Manufacturer = "Springfield Armory",
                             Name = "Springfield Hellcat Pro",
                             Price = 599.99m,
-                            StockQuantity = 22
+                            StockQuantity = 22,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 7,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2081),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1381),
                             Description = "Duty-grade pistol with suppressor-height sights and threaded barrel.",
-                            ImageUrl = "/images/fn509.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "FN Herstal",
                             Name = "FN 509 Tactical",
                             Price = 899.99m,
-                            StockQuantity = 6
+                            StockQuantity = 6,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 8,
                             Caliber = "9mm",
-                            Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2082),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1382),
                             Description = "Performance Duty Pistol with superior ergonomics and lightning-fast trigger.",
-                            ImageUrl = "/images/waltherpdp.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1595590424281-b0aefc285822?w=400&h=300&fit=crop",
                             Manufacturer = "Walther",
                             Name = "Walther PDP Compact",
                             Price = 649.99m,
-                            StockQuantity = 10
+                            StockQuantity = 10,
+                            SubCategory = "Handgun"
                         },
                         new
                         {
                             Id = 9,
                             Caliber = "5.56 NATO",
-                            Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2084),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1384),
                             Description = "Reliable AR-15 platform rifle for sport shooting, home defense, and tactical applications.",
-                            ImageUrl = "/images/mp15.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Smith & Wesson",
                             Name = "Smith & Wesson M&P15 Sport II",
                             Price = 799.99m,
-                            StockQuantity = 10
+                            StockQuantity = 10,
+                            SubCategory = "Rifle"
                         },
                         new
                         {
                             Id = 10,
                             Caliber = ".22 LR",
-                            Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2086),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1386),
                             Description = "Classic .22 LR rifle perfect for training, plinking, and small game hunting.",
-                            ImageUrl = "/images/ruger1022.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Ruger",
                             Name = "Ruger 10/22 Carbine",
                             Price = 329.99m,
-                            StockQuantity = 25
+                            StockQuantity = 25,
+                            SubCategory = "Rifle"
                         },
                         new
                         {
                             Id = 11,
                             Caliber = "5.56 NATO",
-                            Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2087),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1387),
                             Description = "Premium AR-15 with advanced features for serious shooters and professionals.",
-                            ImageUrl = "/images/ddm4v7.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Daniel Defense",
                             Name = "Daniel Defense DDM4 V7",
                             Price = 1799.99m,
-                            StockQuantity = 4
+                            StockQuantity = 4,
+                            SubCategory = "Rifle"
                         },
                         new
                         {
                             Id = 12,
                             Caliber = "5.56 NATO",
-                            Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2089),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1389),
                             Description = "High-performance AR-15 with enhanced features for competitive shooting.",
-                            ImageUrl = "/images/saintvictor.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Springfield Armory",
                             Name = "Springfield Saint Victor",
                             Price = 1099.99m,
-                            StockQuantity = 7
+                            StockQuantity = 7,
+                            SubCategory = "Rifle"
                         },
                         new
                         {
                             Id = 13,
                             Caliber = "5.56 NATO",
-                            Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2091),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1391),
                             Description = "Reliable and affordable AR-15 platform rifle made in the USA.",
-                            ImageUrl = "/images/rugerar556.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Ruger",
                             Name = "Ruger AR-556",
                             Price = 799.99m,
-                            StockQuantity = 15
+                            StockQuantity = 15,
+                            SubCategory = "Rifle"
                         },
                         new
                         {
                             Id = 14,
                             Caliber = "5.56 NATO",
-                            Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2092),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1393),
                             Description = "Quality-built AR-15 with premium components and excellent accuracy.",
-                            ImageUrl = "/images/aeroac15.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Aero Precision",
                             Name = "Aero Precision AC-15",
                             Price = 899.99m,
-                            StockQuantity = 8
+                            StockQuantity = 8,
+                            SubCategory = "Rifle"
                         },
                         new
                         {
                             Id = 15,
                             Caliber = ".308 Winchester",
-                            Category = "Sniper Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2094),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1394),
                             Description = "Bolt-action precision rifle with heavy barrel for long-range accuracy.",
-                            ImageUrl = "/images/remington700.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Remington",
                             Name = "Remington 700 SPS Tactical",
                             Price = 799.99m,
-                            StockQuantity = 6
+                            StockQuantity = 6,
+                            SubCategory = "Sniper Rifle"
                         },
                         new
                         {
                             Id = 16,
                             Caliber = "6.5 Creedmoor",
-                            Category = "Sniper Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2095),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1472),
                             Description = "Modular bolt-action rifle designed for long-range precision shooting.",
-                            ImageUrl = "/images/rugerprecision.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Ruger",
                             Name = "Ruger Precision Rifle",
                             Price = 1399.99m,
-                            StockQuantity = 3
+                            StockQuantity = 3,
+                            SubCategory = "Sniper Rifle"
                         },
                         new
                         {
                             Id = 17,
                             Caliber = ".308 Winchester",
-                            Category = "Sniper Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2097),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1474),
                             Description = "Hybrid Match Rifle with exceptional out-of-the-box accuracy.",
-                            ImageUrl = "/images/bergara.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Bergara",
                             Name = "Bergara B-14 HMR",
                             Price = 999.99m,
-                            StockQuantity = 5
+                            StockQuantity = 5,
+                            SubCategory = "Sniper Rifle"
                         },
                         new
                         {
                             Id = 18,
                             Caliber = "6.5 Creedmoor",
-                            Category = "Sniper Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2099),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1476),
                             Description = "Modern tactical chassis rifle with outstanding accuracy and modularity.",
-                            ImageUrl = "/images/tikkat3x.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Tikka",
                             Name = "Tikka T3x TAC A1",
                             Price = 1999.99m,
-                            StockQuantity = 2
+                            StockQuantity = 2,
+                            SubCategory = "Sniper Rifle"
                         },
                         new
                         {
                             Id = 19,
                             Caliber = ".308 Winchester",
-                            Category = "Sniper Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2100),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1477),
                             Description = "Budget-friendly precision rifle with excellent accuracy for the price.",
-                            ImageUrl = "/images/savage110.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Savage",
                             Name = "Savage 110 Precision",
                             Price = 1199.99m,
-                            StockQuantity = 7
+                            StockQuantity = 7,
+                            SubCategory = "Sniper Rifle"
                         },
                         new
                         {
                             Id = 20,
                             Caliber = "12 Gauge",
-                            Category = "Shotgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2102),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1479),
                             Description = "Dependable pump-action shotgun for hunting, home security, and sport shooting.",
-                            ImageUrl = "/images/remington870.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Remington",
                             Name = "Remington 870 Express",
                             Price = 449.99m,
-                            StockQuantity = 12
+                            StockQuantity = 12,
+                            SubCategory = "Shotgun"
                         },
                         new
                         {
                             Id = 21,
                             Caliber = "12 Gauge",
-                            Category = "Shotgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2104),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1481),
                             Description = "Versatile pump-action shotgun designed specifically for home defense applications.",
-                            ImageUrl = "/images/mossberg500.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Mossberg",
                             Name = "Mossberg 500 Security",
                             Price = 419.99m,
-                            StockQuantity = 15
+                            StockQuantity = 15,
+                            SubCategory = "Shotgun"
                         },
                         new
                         {
                             Id = 22,
                             Caliber = "12 Gauge",
-                            Category = "Shotgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2105),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1483),
                             Description = "Semi-automatic tactical shotgun used by military and law enforcement worldwide.",
-                            ImageUrl = "/images/benellim4.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Benelli",
                             Name = "Benelli M4",
                             Price = 1899.99m,
-                            StockQuantity = 3
+                            StockQuantity = 3,
+                            SubCategory = "Shotgun"
                         },
                         new
                         {
                             Id = 23,
                             Caliber = "12 Gauge",
-                            Category = "Shotgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2107),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1484),
                             Description = "Fast-action pump shotgun with smooth operation for home defense.",
-                            ImageUrl = "/images/winchestersxp.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Winchester",
                             Name = "Winchester SXP Defender",
                             Price = 379.99m,
-                            StockQuantity = 9
+                            StockQuantity = 9,
+                            SubCategory = "Shotgun"
                         },
                         new
                         {
                             Id = 24,
                             Caliber = "12 Gauge",
-                            Category = "Shotgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2109),
+                            Category = "Guns",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1486),
                             Description = "Lightning-fast semi-automatic shotgun with advanced features.",
-                            ImageUrl = "/images/beretta1301.jpg",
+                            ImageUrl = "https://images.unsplash.com/photo-1594282482181-7c26e64bc912?w=400&h=300&fit=crop",
                             Manufacturer = "Beretta",
                             Name = "Beretta 1301 Tactical",
                             Price = 1399.99m,
-                            StockQuantity = 4
+                            StockQuantity = 4,
+                            SubCategory = "Shotgun"
                         },
                         new
                         {
                             Id = 25,
                             Caliber = "9mm",
-                            Category = "PCC",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2110),
-                            Description = "Compact pistol caliber carbine with minimal recoil and high maneuverability.",
-                            ImageUrl = "/images/mpxcopperhead.jpg",
-                            Manufacturer = "Sig Sauer",
-                            Name = "Sig Sauer MPX Copperhead",
-                            Price = 1799.99m,
-                            StockQuantity = 5
+                            Category = "Ammo",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1488),
+                            Description = "Quality 9mm ammunition for target practice and self-defense. 115 grain FMJ.",
+                            ImageUrl = "https://images.unsplash.com/photo-1577401232313-575cd2f32643?w=400&h=300&fit=crop",
+                            Manufacturer = "Federal",
+                            Name = "9mm Luger Ammo - 50 Rounds",
+                            Price = 24.99m,
+                            StockQuantity = 100,
+                            SubCategory = "Handgun Ammo"
                         },
                         new
                         {
                             Id = 26,
-                            Caliber = "9mm",
-                            Category = "PCC",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2112),
-                            Description = "Takedown carbine that accepts Ruger and Glock magazines.",
-                            ImageUrl = "/images/rugerpc.jpg",
-                            Manufacturer = "Ruger",
-                            Name = "Ruger PC Carbine",
-                            Price = 699.99m,
-                            StockQuantity = 12
+                            Caliber = ".45 ACP",
+                            Category = "Ammo",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1489),
+                            Description = "Reliable .45 ACP ammunition for target shooting and self-defense.",
+                            ImageUrl = "https://images.unsplash.com/photo-1577401232313-575cd2f32643?w=400&h=300&fit=crop",
+                            Manufacturer = "Winchester",
+                            Name = ".45 ACP Ammo - 50 Rounds",
+                            Price = 34.99m,
+                            StockQuantity = 80,
+                            SubCategory = "Handgun Ammo"
                         },
                         new
                         {
                             Id = 27,
-                            Caliber = "9mm",
-                            Category = "PCC",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2114),
-                            Description = "Modern pistol caliber carbine with modular design and low recoil.",
-                            ImageUrl = "/images/czscorpion.jpg",
-                            Manufacturer = "CZ",
-                            Name = "CZ Scorpion EVO 3 S1",
-                            Price = 899.99m,
-                            StockQuantity = 8
+                            Caliber = ".223 Rem",
+                            Category = "Ammo",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1491),
+                            Description = "High-quality .223 ammunition perfect for target shooting and training.",
+                            ImageUrl = "https://images.unsplash.com/photo-1577401232313-575cd2f32643?w=400&h=300&fit=crop",
+                            Manufacturer = "Winchester",
+                            Name = ".223 Remington Ammo - 20 Rounds",
+                            Price = 19.99m,
+                            StockQuantity = 80,
+                            SubCategory = "Rifle Ammo"
                         },
                         new
                         {
                             Id = 28,
-                            Caliber = ".30-06 Springfield",
-                            Category = "Hunting Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2115),
-                            Description = "Lightweight hunting rifle with smooth bolt operation and excellent accuracy.",
-                            ImageUrl = "/images/browningxbolt.jpg",
-                            Manufacturer = "Browning",
-                            Name = "Browning X-Bolt Hunter",
-                            Price = 1099.99m,
-                            StockQuantity = 6
+                            Caliber = "12 Gauge",
+                            Category = "Ammo",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1493),
+                            Description = "Powerful 12 gauge buckshot ammunition for home defense and hunting.",
+                            ImageUrl = "https://images.unsplash.com/photo-1577401232313-575cd2f32643?w=400&h=300&fit=crop",
+                            Manufacturer = "Remington",
+                            Name = "12 Gauge Buckshot - 25 Rounds",
+                            Price = 34.99m,
+                            StockQuantity = 60,
+                            SubCategory = "Shotgun Ammo"
                         },
                         new
                         {
                             Id = 29,
-                            Caliber = ".300 Win Mag",
-                            Category = "Hunting Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2117),
-                            Description = "Sub-MOA guaranteed hunting rifle with Weatherby accuracy.",
-                            ImageUrl = "/images/weatherby.jpg",
-                            Manufacturer = "Weatherby",
-                            Name = "Weatherby Vanguard",
-                            Price = 799.99m,
-                            StockQuantity = 4
+                            Caliber = ".308 Win",
+                            Category = "Ammo",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1495),
+                            Description = "Premium .308 ammunition for hunting and long-range shooting.",
+                            ImageUrl = "https://images.unsplash.com/photo-1577401232313-575cd2f32643?w=400&h=300&fit=crop",
+                            Manufacturer = "Hornady",
+                            Name = ".308 Winchester Ammo - 20 Rounds",
+                            Price = 29.99m,
+                            StockQuantity = 50,
+                            SubCategory = "Rifle Ammo"
                         },
                         new
                         {
                             Id = 30,
-                            Caliber = ".22 LR",
-                            Category = "Hunting Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 21, 27, 47, 554, DateTimeKind.Utc).AddTicks(2119),
-                            Description = "Beautiful lever-action rifle with brass receiver and American walnut stock.",
-                            ImageUrl = "/images/goldenboy.jpg",
-                            Manufacturer = "Henry",
-                            Name = "Henry Golden Boy",
-                            Price = 899.99m,
-                            StockQuantity = 7
+                            Caliber = "9mm",
+                            Category = "Accessories",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1496),
+                            Description = "Factory OEM magazine for Glock 19 pistols. Reliable and durable.",
+                            ImageUrl = "https://images.unsplash.com/photo-1544531585-9847b16c67cb?w=400&h=300&fit=crop",
+                            Manufacturer = "Glock",
+                            Name = "Glock 19 Magazine - 15 Rounds",
+                            Price = 29.99m,
+                            StockQuantity = 25,
+                            SubCategory = "Magazines"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Caliber = "5.56 NATO",
+                            Category = "Accessories",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1498),
+                            Description = "Standard capacity magazine for AR-15 platform rifles. PMAG design.",
+                            ImageUrl = "https://images.unsplash.com/photo-1544531585-9847b16c67cb?w=400&h=300&fit=crop",
+                            Manufacturer = "Magpul",
+                            Name = "AR-15 30 Round Magazine",
+                            Price = 14.99m,
+                            StockQuantity = 40,
+                            SubCategory = "Magazines"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Caliber = "Multiple",
+                            Category = "Accessories",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1500),
+                            Description = "Complete cleaning kit for all handgun calibers. Includes rods, brushes, and solvent.",
+                            ImageUrl = "https://images.unsplash.com/photo-1585776467777-4d2e1c2f1b1a?w=400&h=300&fit=crop",
+                            Manufacturer = "Hoppe's",
+                            Name = "Universal Pistol Cleaning Kit",
+                            Price = 39.99m,
+                            StockQuantity = 30,
+                            SubCategory = "Cleaning"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Caliber = "N/A",
+                            Category = "Accessories",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1502),
+                            Description = "Adjustable 2-point tactical sling for rifles and shotguns. Quick-adjust design.",
+                            ImageUrl = "https://images.unsplash.com/photo-1585776467777-4d2e1c2f1b1a?w=400&h=300&fit=crop",
+                            Manufacturer = "Blue Force Gear",
+                            Name = "Universal Tactical Sling",
+                            Price = 49.99m,
+                            StockQuantity = 20,
+                            SubCategory = "Slings"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Caliber = "N/A",
+                            Category = "Accessories",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1503),
+                            Description = "Advanced electronic earmuffs that amplify ambient sounds while protecting from loud noises.",
+                            ImageUrl = "https://images.unsplash.com/photo-1585776467777-4d2e1c2f1b1a?w=400&h=300&fit=crop",
+                            Manufacturer = "Walker's",
+                            Name = "Electronic Hearing Protection",
+                            Price = 89.99m,
+                            StockQuantity = 15,
+                            SubCategory = "Hearing Protection"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Caliber = "N/A",
+                            Category = "Accessories",
+                            CreatedDate = new DateTime(2025, 10, 27, 22, 33, 0, 728, DateTimeKind.Utc).AddTicks(1505),
+                            Description = "Compact red dot sight with multiple reticle options for fast target acquisition.",
+                            ImageUrl = "https://images.unsplash.com/photo-1585776467777-4d2e1c2f1b1a?w=400&h=300&fit=crop",
+                            Manufacturer = "Sig Sauer",
+                            Name = "Tactical Red Dot Sight",
+                            Price = 199.99m,
+                            StockQuantity = 12,
+                            SubCategory = "Optics"
                         });
                 });
 

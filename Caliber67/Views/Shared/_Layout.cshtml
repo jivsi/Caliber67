@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Caliber67.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -27,8 +28,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Products
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Guns">Firearms</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Ammo">Ammunition</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Accessories">Accessories</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index">All Products</a></li>
+                            </ul>
                         </li>
                     </ul>
 
@@ -37,7 +47,7 @@
                         <!-- Cart Button -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Carts" asp-action="Index">
-                                <i class="fas fa-shopping-cart"></i> Cart
+                                🛒 Cart
                                 <span class="badge bg-primary" id="cartCount">0</span>
                             </a>
                         </li>
@@ -82,9 +92,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <!-- Font Awesome for cart icon (optional) -->
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
 
     <!-- JavaScript to update cart count -->
     <script>

@@ -20,7 +20,10 @@ namespace Caliber67.Models
 
         [Required]
         [StringLength(50)]
-        public string Category { get; set; } // Handgun, Rifle, Shotgun, etc.
+        public string Category { get; set; } // Main category: Guns, Ammo, Accessories
+
+        [StringLength(50)]
+        public string SubCategory { get; set; } // Sub-category: Handgun, Rifle, Shotgun, etc.
 
         [StringLength(50)]
         public string Caliber { get; set; }
@@ -33,8 +36,8 @@ namespace Caliber67.Models
         [StringLength(255)]
         public string ImageUrl { get; set; }
 
-        public bool IsAvailable => StockQuantity > 0;
-
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
+        public bool IsAvailable => StockQuantity > 0;
     }
 }
