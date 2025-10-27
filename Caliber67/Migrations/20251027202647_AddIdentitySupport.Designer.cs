@@ -3,6 +3,7 @@ using System;
 using Caliber67.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Caliber67.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251027202647_AddIdentitySupport")]
+    partial class AddIdentitySupport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.20");
@@ -26,6 +29,7 @@ namespace Caliber67.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
@@ -33,6 +37,7 @@ namespace Caliber67.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -54,6 +59,7 @@ namespace Caliber67.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -61,6 +67,7 @@ namespace Caliber67.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -91,6 +98,7 @@ namespace Caliber67.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("State")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
@@ -105,6 +113,7 @@ namespace Caliber67.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ZipCode")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
@@ -277,7 +286,7 @@ namespace Caliber67.Migrations
                             Id = 1,
                             Caliber = "9mm",
                             Category = "Handgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 20, 32, 39, 295, DateTimeKind.Utc).AddTicks(5133),
+                            CreatedDate = new DateTime(2025, 10, 27, 20, 26, 47, 174, DateTimeKind.Utc).AddTicks(9481),
                             Description = "Compact 9mm pistol, perfect for concealed carry and home defense.",
                             ImageUrl = "/images/glock19.jpg",
                             Manufacturer = "Glock",
@@ -290,7 +299,7 @@ namespace Caliber67.Migrations
                             Id = 2,
                             Caliber = "5.56 NATO",
                             Category = "Rifle",
-                            CreatedDate = new DateTime(2025, 10, 27, 20, 32, 39, 295, DateTimeKind.Utc).AddTicks(5143),
+                            CreatedDate = new DateTime(2025, 10, 27, 20, 26, 47, 174, DateTimeKind.Utc).AddTicks(9491),
                             Description = "Reliable AR-15 platform rifle for sport shooting and home defense.",
                             ImageUrl = "/images/mp15.jpg",
                             Manufacturer = "Smith & Wesson",
@@ -303,7 +312,7 @@ namespace Caliber67.Migrations
                             Id = 3,
                             Caliber = "12 Gauge",
                             Category = "Shotgun",
-                            CreatedDate = new DateTime(2025, 10, 27, 20, 32, 39, 295, DateTimeKind.Utc).AddTicks(5145),
+                            CreatedDate = new DateTime(2025, 10, 27, 20, 26, 47, 174, DateTimeKind.Utc).AddTicks(9493),
                             Description = "Dependable pump-action shotgun for hunting and home security.",
                             ImageUrl = "/images/remington870.jpg",
                             Manufacturer = "Remington",

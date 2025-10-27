@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Caliber67.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<h1>Firearms Products</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Add New Product</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -36,48 +36,85 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Caliber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                </td>
+                <td>
+                    @{
+                        // Shorten long descriptions
+                        var shortDescription = item.Description.Length > 50
+                        ? item.Description.Substring(0, 50) + "..."
+                        : item.Description;
+                    }
+                    @shortDescription
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <span class="badge bg-secondary">@Html.DisplayFor(modelItem => item.Category)</span>
+                </td>
+                <td>
+                    <span class="badge bg-info">@Html.DisplayFor(modelItem => item.Caliber)</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    @if (item.StockQuantity > 10)
+                    {
+                        <span class="badge bg-success">@Html.DisplayFor(modelItem => item.StockQuantity) in stock</span>
+                    }
+                    else if (item.StockQuantity > 0)
+                    {
+                        <span class="badge bg-warning">Only @Html.DisplayFor(modelItem => item.StockQuantity) left</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Out of stock</span>
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" alt="@item.Name" style="width: 50px; height: 50px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No image</span>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+
+                        @if (item.IsAvailable)
+                        {
+                            <form asp-controller="Carts" asp-action="AddToCart" method="post" class="d-inline">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="number" name="quantity" value="1" min="1" max="@item.StockQuantity"
+                                           class="form-control" style="width: 60px;" />
+                                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary btn-sm" disabled>Out of Stock</button>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
