@@ -29,6 +29,7 @@ namespace Caliber67.Data
         {
             base.OnModelCreating(builder);
 
+            // SQLite doesn't support decimal as efficiently, but we'll keep it
             // Configure relationships for Shopping Cart
             builder.Entity<Cart>()
                 .HasOne(c => c.User)
