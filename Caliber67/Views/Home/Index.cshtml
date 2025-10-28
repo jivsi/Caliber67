@@ -1,8 +1,130 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home - _67caliber";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+    <h1 class="display-4">Welcome to _67caliber</h1>
+    <p class="lead">Your premier destination for firearms, ammunition, and accessories</p>
 </div>
+
+<!-- Category Sections -->
+<div class="row g-4">
+    <!-- Firearms Section -->
+    <div class="col-md-4">
+        <div class="card category-card h-100">
+            <a asp-controller="Products" asp-action="Guns" class="text-decoration-none text-dark">
+                <img src="/images/placeholder-guns.jpg" class="card-img-top" alt="Firearms" style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Firearms</h3>
+                    <p class="card-text">Explore our extensive collection of handguns, rifles, shotguns, and precision firearms.</p>
+                    <div class="btn btn-primary">Browse Firearms</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Ammunition Section -->
+    <div class="col-md-4">
+        <div class="card category-card h-100">
+            <a asp-controller="Products" asp-action="Ammo" class="text-decoration-none text-dark">
+                <img src="/images/placeholder-ammo.jpg" class="card-img-top" alt="Ammunition" style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Ammunition</h3>
+                    <p class="card-text">High-quality ammunition for all your shooting needs. From target practice to self-defense.</p>
+                    <div class="btn btn-primary">Browse Ammunition</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Accessories Section -->
+    <div class="col-md-4">
+        <div class="card category-card h-100">
+            <a asp-controller="Products" asp-action="Accessories" class="text-decoration-none text-dark">
+                <img src="/images/placeholder-accessories.jpg" class="card-img-top" alt="Accessories" style="height: 250px; object-fit: cover;">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Accessories</h3>
+                    <p class="card-text">Magazines, cleaning kits, optics, slings, and all essential firearm accessories.</p>
+                    <div class="btn btn-primary">Browse Accessories</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Products Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="text-center mb-4">
+            <h2>Featured Products</h2>
+            <p class="text-muted">Check out some of our most popular items</p>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="/images/placeholder-guns.jpg" class="card-img-top" alt="Glock 19" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Glock 19 Gen 5</h5>
+                        <p class="card-text">Compact 9mm pistol for concealed carry.</p>
+                        <h6 class="text-primary">$549.99</h6>
+                        <a asp-controller="Products" asp-action="Guns" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="/images/placeholder-ammo.jpg" class="card-img-top" alt="9mm Ammo" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">9mm Luger Ammo</h5>
+                        <p class="card-text">50 rounds of quality ammunition.</p>
+                        <h6 class="text-primary">$24.99</h6>
+                        <a asp-controller="Products" asp-action="Ammo" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="/images/placeholder-accessories.jpg" class="card-img-top" alt="Glock Magazine" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Glock 19 Magazine</h5>
+                        <p class="card-text">15-round factory OEM magazine.</p>
+                        <h6 class="text-primary">$29.99</h6>
+                        <a asp-controller="Products" asp-action="Accessories" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="/images/placeholder-guns.jpg" class="card-img-top" alt="AR-15" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">AR-15 Rifle</h5>
+                        <p class="card-text">Reliable platform for sport and defense.</p>
+                        <h6 class="text-primary">$799.99</h6>
+                        <a asp-controller="Products" asp-action="Guns" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .category-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #dee2e6;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .category-card .btn {
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover .btn {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+</style>

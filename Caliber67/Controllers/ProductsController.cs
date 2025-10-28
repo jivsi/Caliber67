@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using Caliber67.Data;
 using Caliber67.Models;
 using Caliber67.Helpers;
+using Caliber67.Services;
 
 namespace Caliber67.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductService _productService;
         private readonly IAuthorizationHelper _authorizationHelper;
 
-        public ProductsController(ApplicationDbContext context, IAuthorizationHelper authorizationHelper)
+        public ProductsController(IProductService productService, IAuthorizationHelper authorizationHelper)
         {
-            _context = context;
+            _productService = productService;
             _authorizationHelper = authorizationHelper;
         }
 
@@ -24,7 +23,8 @@ namespace Caliber67.Controllers
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
 
-            return View(await _context.Products.ToListAsync());
+            var products = await _productService.GetAllProductsAsync();
+            return View(products);
         }
 
         // GET: Guns category
@@ -34,10 +34,7 @@ namespace Caliber67.Controllers
             ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
             ViewBag.Category = "Firearms";
 
-            var guns = await _context.Products
-                .Where(p => p.Category == "Guns")
-                .ToListAsync();
-
+            var guns = await _productService.GetProductsByCategoryAsync("Guns");
             return View("CategoryIndex", guns);
         }
 
@@ -48,10 +45,7 @@ namespace Caliber67.Controllers
             ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
             ViewBag.Category = "Ammunition";
 
-            var ammo = await _context.Products
-                .Where(p => p.Category == "Ammo")
-                .ToListAsync();
-
+            var ammo = await _productService.GetProductsByCategoryAsync("Ammo");
             return View("CategoryIndex", ammo);
         }
 
@@ -62,10 +56,7 @@ namespace Caliber67.Controllers
             ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
             ViewBag.Category = "Accessories";
 
-            var accessories = await _context.Products
-                .Where(p => p.Category == "Accessories")
-                .ToListAsync();
-
+            var accessories = await _productService.GetProductsByCategoryAsync("Accessories");
             return View("CategoryIndex", accessories);
         }
 
@@ -77,15 +68,11 @@ namespace Caliber67.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _productService.GetProductByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
             }
-
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
 
             return View(product);
         }
@@ -105,9 +92,7 @@ namespace Caliber67.Controllers
         {
             if (ModelState.IsValid)
             {
-                product.CreatedDate = DateTime.UtcNow;
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                await _productService.AddProductAsync(product);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -122,7 +107,7 @@ namespace Caliber67.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productService.GetProductByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -145,12 +130,11 @@ namespace Caliber67.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _productService.UpdateProductAsync(product);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch
                 {
-                    if (!ProductExists(product.Id))
+                    if (!await ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -173,8 +157,7 @@ namespace Caliber67.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _productService.GetProductByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -189,69 +172,14 @@ namespace Caliber67.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-            }
-
-            await _context.SaveChangesAsync();
+            await _productService.DeleteProductAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private async Task<bool> ProductExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
-        }
-
-        // GET: Products/Search
-        public async Task<IActionResult> Search(string searchString)
-        {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
-
-            if (string.IsNullOrEmpty(searchString))
-            {
-                return View("Index", await _context.Products.ToListAsync());
-            }
-
-            var products = await _context.Products
-                .Where(p => p.Name.Contains(searchString) ||
-                           p.Description.Contains(searchString) ||
-                           p.Manufacturer.Contains(searchString) ||
-                           p.Caliber.Contains(searchString))
-                .ToListAsync();
-
-            ViewBag.SearchString = searchString;
-            return View("Index", products);
-        }
-
-        // GET: Products/BySubCategory?subCategory=Handgun
-        public async Task<IActionResult> BySubCategory(string subCategory)
-        {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
-            ViewBag.SubCategory = subCategory;
-
-            var products = await _context.Products
-                .Where(p => p.SubCategory == subCategory)
-                .ToListAsync();
-
-            return View("SubCategoryIndex", products);
-        }
-
-        // GET: Products/ByCaliber?caliber=9mm
-        public async Task<IActionResult> ByCaliber(string caliber)
-        {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.IsAdmin = await _authorizationHelper.IsAdminAsync(userId);
-            ViewBag.Caliber = caliber;
-
-            var products = await _context.Products
-                .Where(p => p.Caliber == caliber)
-                .ToListAsync();
-
-            return View("CaliberIndex", products);
+            var product = await _productService.GetProductByIdAsync(id);
+            return product != null;
         }
     }
 }

@@ -11,7 +11,9 @@
 
     @if (isAdmin)
     {
-        <a asp-action="Create" class="btn btn-primary">Add New Product</a>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Product
+        </a>
     }
 </div>
 
@@ -22,10 +24,18 @@
             <div class="card-body">
                 <h5 class="card-title">Browse Categories</h5>
                 <div class="btn-group" role="group">
-                    <a asp-action="Guns" class="btn @(category == "Firearms" ? "btn-primary" : "btn-outline-primary")">Firearms</a>
-                    <a asp-action="Ammo" class="btn @(category == "Ammunition" ? "btn-primary" : "btn-outline-primary")">Ammunition</a>
-                    <a asp-action="Accessories" class="btn @(category == "Accessories" ? "btn-primary" : "btn-outline-primary")">Accessories</a>
-                    <a asp-action="Index" class="btn btn-outline-secondary">All Products</a>
+                    <a asp-action="Guns" class="btn @(category == "Firearms" ? "btn-primary" : "btn-outline-primary")">
+                        <i class="fas fa-gun"></i> Firearms
+                    </a>
+                    <a asp-action="Ammo" class="btn @(category == "Ammunition" ? "btn-primary" : "btn-outline-primary")">
+                        <i class="fas fa-bullseye"></i> Ammunition
+                    </a>
+                    <a asp-action="Accessories" class="btn @(category == "Accessories" ? "btn-primary" : "btn-outline-primary")">
+                        <i class="fas fa-tools"></i> Accessories
+                    </a>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-list"></i> All Products
+                    </a>
                 </div>
             </div>
         </div>
@@ -45,7 +55,7 @@ else
         @foreach (var item in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 product-card">
                     @if (!string.IsNullOrEmpty(item.ImageUrl))
                     {
                         <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
@@ -53,7 +63,11 @@ else
                     else
                     {
                         <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <span class="text-muted">No Image</span>
+                            <div class="text-center text-muted">
+                                <i class="fas fa-image fa-3x mb-2"></i>
+                                <div>@item.Name</div>
+                                <small>No image available</small>
+                            </div>
                         </div>
                     }
 
@@ -92,12 +106,18 @@ else
 
                         <div class="mt-auto">
                             <div class="btn-group w-100" role="group">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
 
                                 @if (isAdmin)
                                 {
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
                                 }
                             </div>
 
@@ -109,13 +129,17 @@ else
                                     <div class="input-group">
                                         <input type="number" name="quantity" value="1" min="1" max="@item.StockQuantity"
                                                class="form-control" placeholder="Qty" />
-                                        <button type="submit" class="btn btn-success">Add to Cart</button>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-cart-plus"></i> Add to Cart
+                                        </button>
                                     </div>
                                 </form>
                             }
                             else
                             {
-                                <button class="btn btn-secondary w-100 mt-2" disabled>Out of Stock</button>
+                                <button class="btn btn-secondary w-100 mt-2" disabled>
+                                    <i class="fas fa-times-circle"></i> Out of Stock
+                                </button>
                             }
                         </div>
                     </div>
@@ -124,3 +148,14 @@ else
         }
     </div>
 }
+
+<style>
+    .product-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+</style>
