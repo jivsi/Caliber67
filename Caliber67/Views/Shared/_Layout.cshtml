@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <strong>_67caliber</strong>
@@ -28,19 +28,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Products" asp-action="Guns">Firearms</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Guns">Firearms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Products" asp-action="Ammo">Ammunition</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Ammo">Ammunition</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Products" asp-action="Accessories">Accessories</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Accessories">Accessories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">All Products</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Index">All Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Stores" asp-action="Index">
+                                <i class="fas fa-map-marker-alt"></i> Stores
+                            </a>
                         </li>
                     </ul>
 
@@ -48,7 +53,7 @@
                     <ul class="navbar-nav">
                         <!-- Cart Button -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Carts" asp-action="Index">
+                            <a class="nav-link" asp-controller="Carts" asp-action="Index">
                                 <i class="fas fa-shopping-cart"></i> Cart
                                 <span class="badge bg-primary" id="cartCount">0</span>
                             </a>
@@ -58,13 +63,13 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
                                     <i class="fas fa-user"></i> @User.Identity?.Name
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">
+                                    <button type="submit" class="nav-link btn btn-link">
                                         <i class="fas fa-sign-out-alt"></i> Logout
                                     </button>
                                 </form>
@@ -73,12 +78,12 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
                                     <i class="fas fa-user-plus"></i> Register
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">
                                     <i class="fas fa-sign-in-alt"></i> Login
                                 </a>
                             </li>
@@ -94,11 +99,6 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - _67caliber - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -130,5 +130,364 @@
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    
+    <!-- AI Chat Widget -->
+    <div id="aiChatWidget" class="ai-chat-widget" style="position: fixed !important; bottom: 150px !important; right: 50px !important; width: 140px !important; height: 140px !important; z-index: 999999 !important; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important; border: 4px solid #FFD700 !important; border-radius: 50% !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; cursor: pointer !important; color: #000000 !important; font-weight: 900 !important; font-size: 14px !important; text-transform: uppercase !important; letter-spacing: 2px !important; box-shadow: 0 0 80px rgba(255, 215, 0, 1) !important;">
+        <div id="aiChatButton" class="ai-chat-button" style="color: #000000 !important; text-align: center !important;">
+            <i class="fas fa-robot" style="font-size: 50px !important; display: block !important; margin-bottom: 10px !important;"></i>
+            <span style="display: block !important; font-family: 'Orbitron', sans-serif !important;">AI ASSIST</span>
+        </div>
+        
+        <div id="aiChatWindow" class="ai-chat-window">
+            <div class="ai-chat-header">
+                <div class="ai-chat-title">
+                    <i class="fas fa-robot"></i>
+                    <span>TACTICAL AI ASSIST</span>
+                </div>
+                <button id="aiChatClose" class="ai-chat-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="aiChatMessages" class="ai-chat-messages">
+                <div class="ai-message">
+                    <div class="ai-message-content">
+                        <i class="fas fa-robot"></i>
+                        <p>Hello! I'm your AI assistant. I can answer any questions you have - whether it's about products, general knowledge, or anything else you'd like to know!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ai-chat-input-container">
+                <input type="text" id="aiChatInput" placeholder="Type your message..." class="ai-chat-input" />
+                <button id="aiChatSend" class="ai-chat-send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .ai-chat-widget {
+            position: fixed;
+            bottom: 120px;
+            right: 50px;
+            z-index: 999999;
+        }
+
+        .ai-chat-button {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border: 4px solid #FFD700;
+            box-shadow: 
+                0 0 60px rgba(255, 215, 0, 1),
+                0 0 100px rgba(255, 215, 0, 0.5),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #000000;
+            font-weight: 900;
+            font-size: 14px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+            position: relative;
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 60px rgba(255, 215, 0, 1),
+                    0 0 100px rgba(255, 215, 0, 0.5),
+                    inset 0 0 30px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 100px rgba(255, 215, 0, 1),
+                    0 0 150px rgba(255, 215, 0, 0.8),
+                    inset 0 0 40px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .ai-chat-button:hover {
+            transform: scale(1.15);
+            animation: none;
+            box-shadow: 
+                0 0 60px rgba(255, 215, 0, 1),
+                inset 0 0 40px rgba(255, 255, 255, 0.5);
+        }
+
+        .ai-chat-button i {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .ai-chat-window {
+            position: absolute;
+            bottom: 160px;
+            right: 0;
+            width: 450px;
+            height: 650px;
+            background: linear-gradient(180deg, rgba(10, 26, 10, 0.98) 0%, rgba(0, 0, 0, 0.99) 100%);
+            border: 3px solid #FFD700;
+            box-shadow: 
+                0 0 40px rgba(255, 215, 0, 0.5),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .ai-chat-window.active {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai-chat-header {
+            padding: 20px;
+            border-bottom: 2px solid #FFD700;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-chat-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFD700;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .ai-chat-title i {
+            font-size: 20px;
+        }
+
+        .ai-chat-close {
+            background: none;
+            border: none;
+            color: #FFD700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ai-chat-close:hover {
+            transform: rotate(90deg);
+            color: #FF0000;
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .ai-message {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-message-content {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #FFD700;
+            padding: 15px;
+            border-radius: 8px;
+            color: #FFD700;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .ai-message-content i {
+            margin-right: 10px;
+            color: #FFA500;
+        }
+
+        .user-message {
+            align-self: flex-end;
+        }
+
+        .user-message .ai-message-content {
+            background: rgba(255, 215, 0, 0.2);
+            text-align: right;
+        }
+
+        .ai-chat-input-container {
+            padding: 20px;
+            border-top: 2px solid #FFD700;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(10, 26, 10, 0.6);
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-chat-input:focus {
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .ai-chat-input::placeholder {
+            color: #808080;
+        }
+
+        .ai-chat-send-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border: none;
+            color: #000000;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .ai-chat-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        @@media (max-width: 768px) {
+            .ai-chat-widget {
+                bottom: 50px;
+                right: 30px;
+            }
+
+            .ai-chat-button {
+                width: 90px;
+                height: 90px;
+                font-size: 10px;
+            }
+
+            .ai-chat-button i {
+                font-size: 30px;
+            }
+
+            .ai-chat-window {
+                width: 380px;
+                height: 550px;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatButton = document.getElementById('aiChatButton');
+            const chatWindow = document.getElementById('aiChatWindow');
+            const chatClose = document.getElementById('aiChatClose');
+            const chatSend = document.getElementById('aiChatSend');
+            const chatInput = document.getElementById('aiChatInput');
+            const chatMessages = document.getElementById('aiChatMessages');
+
+            if (chatButton) {
+                chatButton.addEventListener('click', function() {
+                    chatWindow.classList.toggle('active');
+                    if (chatWindow.classList.contains('active')) {
+                        chatInput.focus();
+                    }
+                });
+            }
+
+            chatClose.addEventListener('click', function() {
+                chatWindow.classList.remove('active');
+            });
+
+            function addMessage(message, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = isUser ? 'ai-message user-message' : 'ai-message';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'ai-message-content';
+                
+                if (!isUser) {
+                    contentDiv.innerHTML = '<i class="fas fa-robot"></i><p>' + message + '</p>';
+                } else {
+                    contentDiv.textContent = message;
+                }
+                
+                messageDiv.appendChild(contentDiv);
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message === '') return;
+
+                addMessage(message, true);
+                chatInput.value = '';
+
+                // Show loading state
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'ai-message';
+                loadingDiv.innerHTML = '<div class="ai-message-content"><i class="fas fa-robot"></i><p>Thinking...</p></div>';
+                chatMessages.appendChild(loadingDiv);
+
+                // Send to AI service
+                fetch('/api/ai/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    chatMessages.removeChild(loadingDiv);
+                    addMessage(data.response || data.error || 'I apologize, but I encountered an error.', false);
+                })
+                .catch(error => {
+                    chatMessages.removeChild(loadingDiv);
+                    addMessage('Error connecting to AI service. Please try again.', false);
+                    console.error('Error:', error);
+                });
+            }
+
+            chatSend.addEventListener('click', sendMessage);
+            
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

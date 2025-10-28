@@ -1,108 +1,320 @@
 ﻿@model Caliber67.Models.Orders.Order
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Order Confirmation - Thank You!";
 }
 
-<h1>Details</h1>
+<div class="order-confirmation-wrapper">
+    <div class="confirmation-container">
+        <!-- Success Icon -->
+        <div class="confirmation-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalAmount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalAmount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingFirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingFirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingLastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingLastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingAddress)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingCity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingCity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingState)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingState)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingZipCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingZipCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingPhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingPhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippingEmail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippingEmail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShippedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShippedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeliveredDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeliveredDate)
-        </dd>
-    </dl>
+        <!-- Main Message -->
+        <h1 class="confirmation-title">ORDER PLACED SUCCESSFULLY!</h1>
+        <p class="confirmation-subtitle">Thank you for your purchase at _67caliber</p>
+
+        <!-- Order Number -->
+        <div class="order-info-card">
+            <div class="order-number">
+                <span class="label">ORDER NUMBER:</span>
+                <span class="value">@Model.OrderNumber</span>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary-card">
+            <h3 style="color: #f97316; margin-bottom: 20px;">ORDER SUMMARY</h3>
+            
+            @if (Model.OrderItems != null && Model.OrderItems.Any())
+            {
+                <div class="order-items-list">
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <div class="order-item-row">
+                            <div class="item-info">
+                                <strong class="item-name">@item.Product.Name</strong>
+                                <span class="item-details">@item.Product.Caliber • Qty: @item.Quantity</span>
+                            </div>
+                            <div class="item-price">$@item.Subtotal.ToString("F2")</div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="order-totals">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span class="total-amount">$@Model.TotalAmount.ToString("F2")</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shipping Information -->
+        <div class="shipping-info-card">
+            <h3 style="color: #f97316; margin-bottom: 15px;">SHIPPING TO</h3>
+            <p><strong>@Model.ShippingFirstName @Model.ShippingLastName</strong></p>
+            <p>@Model.ShippingAddress</p>
+            <p>@Model.ShippingCity, @Model.ShippingState @Model.ShippingZipCode</p>
+            <p style="color: #94a3b8;">@Model.ShippingEmail</p>
+        </div>
+
+        @if (Model.LicenseValidated && !string.IsNullOrEmpty(Model.LicenseImageUrl))
+        {
+            <div class="license-info-card">
+                <i class="fas fa-id-card"></i>
+                <span>Firearms License Verified</span>
+            </div>
+        }
+
+        <!-- Action Buttons -->
+        <div class="confirmation-actions">
+            <a asp-controller="Orders" asp-action="Index" class="btn btn-view-orders">
+                <i class="fas fa-list"></i> VIEW ALL ORDERS
+            </a>
+            <a asp-controller="Products" asp-action="Index" class="btn btn-continue-shopping">
+                <i class="fas fa-shopping-bag"></i> CONTINUE SHOPPING
+            </a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<style>
+    .order-confirmation-wrapper {
+        min-height: 80vh;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .confirmation-container {
+        max-width: 700px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .confirmation-icon {
+        font-size: 80px;
+        color: #f97316;
+        margin-bottom: 30px;
+        animation: scaleIn 0.5s ease-out;
+    }
+
+    @@keyframes scaleIn {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+    .confirmation-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .confirmation-subtitle {
+        font-size: 1.2rem;
+        color: #94a3b8;
+        margin-bottom: 40px;
+    }
+
+    .order-info-card, .order-summary-card, .shipping-info-card, .license-info-card {
+        background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 25px;
+        margin: 20px 0;
+        text-align: left;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .order-number {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .order-number .label {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .order-number .value {
+        color: #f97316;
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: 'Courier New', monospace;
+    }
+
+    .order-items-list {
+        max-height: 300px;
+        overflow-y: auto;
+        margin: 20px 0;
+        padding-right: 10px;
+    }
+
+    .order-item-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #333;
+    }
+
+    .order-item-row:last-child {
+        border-bottom: none;
+    }
+
+    .item-info {
+        flex: 1;
+    }
+
+    .item-name {
+        color: #ffffff;
+        font-size: 1rem;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .item-details {
+        color: #94a3b8;
+        font-size: 0.85rem;
+    }
+
+    .item-price {
+        color: #f97316;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .order-totals {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #333;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #f97316;
+    }
+
+    .total-amount {
+        font-size: 1.5rem;
+    }
+
+    .shipping-info-card p {
+        margin: 8px 0;
+        color: #cbd5e1;
+    }
+
+    .license-info-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: linear-gradient(145deg, #1a341a 0%, #0f1a0f 100%);
+        border-color: #22c55e;
+    }
+
+    .license-info-card i {
+        font-size: 24px;
+        color: #22c55e;
+    }
+
+    .license-info-card span {
+        color: #22c55e;
+        font-weight: 600;
+    }
+
+    .confirmation-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 15px 30px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-view-orders {
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+    }
+
+    .btn-view-orders:hover {
+        background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+    }
+
+    .btn-continue-shopping {
+        background: transparent;
+        color: #f97316;
+        border: 2px solid #f97316;
+    }
+
+    .btn-continue-shopping:hover {
+        background: #f97316;
+        color: #1a1a1a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    /* Scrollbar */
+    .order-items-list::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .order-items-list::-webkit-scrollbar-track {
+        background: #0a0a0a;
+        border-radius: 10px;
+    }
+
+    .order-items-list::-webkit-scrollbar-thumb {
+        background: #f97316;
+        border-radius: 10px;
+    }
+
+    @@media (max-width: 768px) {
+        .confirmation-title {
+            font-size: 1.8rem;
+        }
+
+        .confirmation-actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

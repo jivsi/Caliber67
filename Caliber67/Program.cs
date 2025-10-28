@@ -29,6 +29,9 @@ builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IAuthorizationHelper, AuthorizationHelper>();
 builder.Services.AddScoped<IDataSeedService, DataSeedService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ILicenseValidationService, LicenseValidationService>();
+builder.Services.AddScoped<IAIService, DeepSeekAIService>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

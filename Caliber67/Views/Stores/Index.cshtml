@@ -1,0 +1,207 @@
+@{
+    ViewData["Title"] = "Store Locations";
+}
+
+<style>
+    .store-locations-header {
+        background: linear-gradient(145deg, rgba(10, 26, 10, 0.95) 0%, #000000 100%);
+        border: 2px solid #FFD700;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .store-locations-header h1 {
+        color: #FFD700;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .store-locations-header p {
+        color: #e2e8f0;
+        font-size: 1.1rem;
+    }
+
+    .store-card {
+        background: linear-gradient(145deg, rgba(10, 26, 10, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
+        border: 2px solid #FFD700;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .store-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+        border-color: #FFA500;
+    }
+
+    .store-name {
+        color: #FFD700;
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .store-info {
+        color: #e2e8f0;
+        margin-bottom: 0.5rem;
+    }
+
+    .store-info i {
+        color: #FFD700;
+        margin-right: 10px;
+    }
+
+    .map-container {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid #FFD700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="store-locations-header text-center">
+        <h1><i class="fas fa-map-marked-alt"></i> Our Store Locations</h1>
+        <p>Visit us at one of our locations across the city</p>
+    </div>
+
+    <div class="row">
+        <!-- Store 1 -->
+        <div class="col-md-6 mb-4">
+            <div class="store-card">
+                <div class="store-name">
+                    <i class="fas fa-store"></i> Downtown Main Store
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-map-marker-alt"></i><strong>123 Tactical Avenue</strong>
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-city"></i>Downtown District
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-clock"></i>Mon-Fri: 9AM-7PM | Sat-Sun: 10AM-6PM
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-phone"></i>(555) 123-4567
+                </div>
+                
+                <div class="map-container mt-3">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2667789800176!2d-74.0060!3d40.7128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Store 2 -->
+        <div class="col-md-6 mb-4">
+            <div class="store-card">
+                <div class="store-name">
+                    <i class="fas fa-store"></i> Northside Tactical Center
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-map-marker-alt"></i><strong>456 Gear Boulevard</strong>
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-city"></i>Northside District
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-clock"></i>Mon-Fri: 9AM-7PM | Sat-Sun: 10AM-6PM
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-phone"></i>(555) 234-5678
+                </div>
+                
+                <div class="map-container mt-3">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.4212212275834!2d-74.0060!3d40.7145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Store 3 -->
+        <div class="col-md-6 mb-4">
+            <div class="store-card">
+                <div class="store-name">
+                    <i class="fas fa-store"></i> Westside Firearms Hub
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-map-marker-alt"></i><strong>789 Rifle Road</strong>
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-city"></i>Westside District
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-clock"></i>Mon-Fri: 10AM-6PM | Sat: 10AM-4PM | Sun: Closed
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-phone"></i>(555) 345-6789
+                </div>
+                
+                <div class="map-container mt-3">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.84179866282!2d-74.0060!3d40.7160!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Store 4 -->
+        <div class="col-md-6 mb-4">
+            <div class="store-card">
+                <div class="store-name">
+                    <i class="fas fa-store"></i> Eastern Precision Outpost
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-map-marker-alt"></i><strong>321 Ammo Alley</strong>
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-city"></i>Eastern District
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-clock"></i>Mon-Fri: 9AM-7PM | Sat-Sun: 10AM-6PM
+                </div>
+                <div class="store-info">
+                    <i class="fas fa-phone"></i>(555) 456-7890
+                </div>
+                
+                <div class="map-container mt-3">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2667789800176!2d-74.0040!3d40.7128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

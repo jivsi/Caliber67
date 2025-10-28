@@ -56,6 +56,17 @@ namespace Caliber67.Models.Orders
         public DateTime? ShippedDate { get; set; }
         public DateTime? DeliveredDate { get; set; }
 
+        // Firearms License Information
+        [StringLength(255)]
+        public string LicenseImageUrl { get; set; }
+
+        public DateTime? LicenseExpirationDate { get; set; }
+
+        public bool LicenseValidated { get; set; } = false;
+
+        [StringLength(500)]
+        public string LicenseValidationNotes { get; set; }
+
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         private static string GenerateOrderNumber()
